@@ -123,6 +123,20 @@ AttributeList::Kind AttributeList::getKind(const IdentifierInfo *Name,
       AttrName.size() >= 4)
     AttrName = AttrName.substr(2, AttrName.size() - 4);
 
+  if(AttrName.startswith("\"SAL_"))
+  {
+	  int parenPos = AttrName.find("(");
+	  if(parenPos == StringRef::npos)
+	  {
+		  assert(AttrName.endswith("\"") == true);
+		  AttrName = AttrName.substr(1, AttrName.size() - 2);
+	  }
+	  else
+	  {
+		  AttrName = AttrName.substr(1, parenPos - 1);
+	  }
+  }
+
   SmallString<64> Buf;
   if (ScopeName)
     Buf += ScopeName->getName();

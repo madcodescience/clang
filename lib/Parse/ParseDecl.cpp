@@ -564,7 +564,84 @@ void Parser::ParseMicrosoftDeclSpec(ParsedAttributes &Attrs) {
         return;
       }
       AttrName = PP.getIdentifierInfo(Str);
-      AttrNameLoc = ConsumeStringToken();
+#if 0
+	  AttrNameLoc = ConsumeStringToken();
+#else
+	
+		if(AttrName->getName().startswith("\"SAL_"))
+		{
+			AttrNameLoc = Tok.getLocation();
+
+
+			assert(isTokenStringLiteral() && "Not a string literal!");
+			SmallVector<Token, 4> StringToks;
+
+			ExprResult lit = ParseStringLiteralExpression();
+			assert(lit.isInvalid() == false);
+			StringRef literalValue = dyn_cast<StringLiteral>(lit.get())->getString();
+
+			if(Tok.getKind() != tok::r_paren)
+			{
+				// it is a more sophisticated expression
+				int parenLevel = 1;
+				do 
+				{
+					if(Tok.getKind() == tok::identifier)
+					{
+						IdentifierInfo *idInfo;
+						idInfo = Tok.getIdentifierInfo();
+
+						StringRef str = idInfo->getName();
+						//printf("[STR %d]: %.*s\n", Tok.getKind(), str.size(), str.data());
+					}
+					else
+					{
+						//printf("[STR %d]: Unknown\n", Tok.getKind());
+					}
+
+					ConsumeAnyToken();
+
+					if(Tok.getKind() == tok::l_paren)
+					{
+						parenLevel ++;
+					}
+					else if(Tok.getKind() == tok::r_paren)
+					{
+						parenLevel --;
+					}
+
+				} while (parenLevel > 0);
+
+				assert(Tok.getKind() == tok::r_paren);
+			}
+
+			int parenPos = literalValue.find("(");
+			if(parenPos == StringRef::npos)
+			{
+				// zero arguments
+				Attrs.addNew(AttrName, AttrNameLoc, 0, AttrNameLoc, 0, 0,
+					AttributeList::AS_Declspec);
+			}
+			else
+			{
+				// one argument
+				ArgsUnion ExprList = lit.take();
+				Attrs.addNew(AttrName, AttrNameLoc, 0, AttrNameLoc, &ExprList, 1,
+					AttributeList::AS_Declspec);
+			}
+
+			//printf("[SAL]: %.*s\n", literalValue.size(), literalValue.data());
+
+			continue;
+		}
+		else
+		{
+			StringRef name = AttrName->getName();
+			printf("Skipping: %.*s\n", name.size(), name.data());
+			AttrNameLoc = ConsumeStringToken();
+		}
+
+#endif
     } else {
       AttrName = Tok.getIdentifierInfo();
       AttrNameLoc = ConsumeToken();

@@ -682,6 +682,279 @@ def InitPriority : InheritableAttr {
   let Args = [UnsignedArgument<"Priority">];
 }
 
+
+def restrict : InheritableAttr {
+  let Spellings = [Declspec<"restrict">];
+}
+def noalias : InheritableAttr {
+  let Spellings = [Declspec<"noalias">];
+}
+def novtable : InheritableAttr {
+  let Spellings = [Declspec<"novtable">];
+}
+
+def SAL_allocator : InheritableAttr {
+  let Spellings = [Declspec<"SAL_allocator">];
+}
+
+def SAL_annotation : InheritableAttr {
+  let Spellings = [Declspec<"SAL_annotation">];
+}
+
+def SAL_AuToQuOtE : InheritableAttr {
+  let Spellings = [Declspec<"SAL_AuToQuOtE">];
+}
+
+def SAL_access : InheritableAttr {
+  let Spellings = [Declspec<"SAL_access">];
+  let Args = [StringArgument<"SALArg">];
+}
+
+def SAL_acquires_lock : InheritableAttr {
+  let Spellings = [Declspec<"SAL_acquires_lock">];
+  let Args = [StringArgument<"SALArg">];
+}
+
+def SAL_at_buffer : InheritableAttr {
+  let Spellings = [Declspec<"SAL_at_buffer">];
+  let Args = [StringArgument<"SALArg">];
+}
+
+def SAL_begin : InheritableAttr {
+  let Spellings = [Declspec<"SAL_begin">];
+}
+
+def SAL_blocksOn : InheritableAttr {
+  let Spellings = [Declspec<"SAL_blocksOn">];
+}
+
+def SAL_bound : InheritableAttr {
+  let Spellings = [Declspec<"SAL_bound">];
+}
+
+def SAL_callback : InheritableAttr {
+  let Spellings = [Declspec<"SAL_callback">];
+}
+
+def SAL_checkReturn : InheritableAttr {
+  let Spellings = [Declspec<"SAL_checkReturn">];
+}
+
+def SAL_deferTypecheck : InheritableAttr {
+  let Spellings = [Declspec<"SAL_deferTypecheck">];
+}
+
+def SAL_deref : InheritableAttr {
+  let Spellings = [Declspec<"SAL_deref">];
+}
+
+def SAL_end : InheritableAttr {
+  let Spellings = [Declspec<"SAL_end">];
+}
+
+def SAL_entrypoint : InheritableAttr {
+  let Spellings = [Declspec<"SAL_entrypoint">];
+  let Args = [StringArgument<"SALArg">];
+}
+
+def SAL_error : InheritableAttr {
+  let Spellings = [Declspec<"SAL_error">];
+  let Args = [StringArgument<"SALArg">];
+}
+
+def SAL_except : InheritableAttr {
+  let Spellings = [Declspec<"SAL_except">];
+}
+
+def SAL_functionClass : InheritableAttr {
+  let Spellings = [Declspec<"SAL_functionClass">];
+  let Args = [StringArgument<"SALArg">];
+}
+
+def SAL_ignore_lock_match : InheritableAttr {
+  let Spellings = [Declspec<"SAL_ignore_lock_match">];
+  let Args = [StringArgument<"SALArg">];
+}
+
+def SAL_interlocked : InheritableAttr {
+  let Spellings = [Declspec<"SAL_interlocked">];
+}
+
+def SAL_inTry : InheritableAttr {
+  let Spellings = [Declspec<"SAL_inTry">];
+  let Args = [StringArgument<"SALArg">];
+}
+
+def SAL_IsAliased : InheritableAttr {
+  let Spellings = [Declspec<"SAL_IsAliased">];
+}
+
+def SAL_IsFormatString : InheritableAttr {
+  let Spellings = [Declspec<"SAL_IsFormatString">];
+  let Args = [StringArgument<"SALArg">];
+}
+
+def SAL_maxIRQL : InheritableAttr {
+  let Spellings = [Declspec<"SAL_maxIRQL">];
+  let Args = [StringArgument<"SALArg">];
+}
+
+def SAL_maybenull : InheritableAttr {
+  let Spellings = [Declspec<"SAL_maybenull">];
+}
+
+def SAL_maybevalid : InheritableAttr {
+  let Spellings = [Declspec<"SAL_maybevalid">];
+}
+
+def SAL_name : InheritableAttr {
+  let Spellings = [Declspec<"SAL_name">];
+  let Args = [StringArgument<"SALArg">];
+}
+
+def SAL_NeedsRelease : InheritableAttr {
+  let Spellings = [Declspec<"SAL_NeedsRelease">];
+  let Args = [StringArgument<"SALArg">];
+}
+
+def SAL_notnull : InheritableAttr {
+  let Spellings = [Declspec<"SAL_notnull">];
+}
+
+def SAL_notreadonly : InheritableAttr {
+  let Spellings = [Declspec<"SAL_notreadonly">];
+}
+
+def SAL_notref : InheritableAttr {
+  let Spellings = [Declspec<"SAL_notref">];
+}
+
+def SAL_notvalid : InheritableAttr {
+  let Spellings = [Declspec<"SAL_notvalid">];
+}
+
+def SAL_null : InheritableAttr {
+  let Spellings = [Declspec<"SAL_null">];
+  let Args = [StringArgument<"SALArg", 1>];
+}
+
+def SAL_nullTerminated : InheritableAttr {
+  let Spellings = [Declspec<"SAL_nullTerminated">];
+  let Args = [StringArgument<"SALArg">];
+}
+
+def SAL_post : InheritableAttr {
+  let Spellings = [Declspec<"SAL_post">];
+}
+
+def SAL_pre : InheritableAttr {
+  let Spellings = [Declspec<"SAL_pre">];
+}
+
+def SAL_primop : InheritableAttr {
+  let Spellings = [Declspec<"SAL_primop">];
+}
+
+def SAL_override : InheritableAttr {
+  let Spellings = [Declspec<"SAL_override">];
+}
+
+def SAL_preferredFunction : InheritableAttr {
+  let Spellings = [Declspec<"SAL_preferredFunction">];
+  let Args = [StringArgument<"SALArg">];
+}
+
+def SAL_qualifier : InheritableAttr {
+  let Spellings = [Declspec<"SAL_qualifier">];
+}
+
+def SAL_range : InheritableAttr {
+  let Spellings = [Declspec<"SAL_range">];
+  let Args = [StringArgument<"SALArg">];
+}
+
+def SAL_readableTo : InheritableAttr {
+  let Spellings = [Declspec<"SAL_readableTo">];
+  let Args = [StringArgument<"SALArg">];
+}
+
+def SAL_readonly : InheritableAttr {
+  let Spellings = [Declspec<"SAL_readonly">];
+}
+
+def SAL_releases_lock : InheritableAttr {
+  let Spellings = [Declspec<"SAL_releases_lock">];
+  let Args = [StringArgument<"SALArg">];
+}
+
+def SAL_sameIRQL : InheritableAttr {
+  let Spellings = [Declspec<"SAL_sameIRQL">];
+}
+
+def SAL_satisfies : InheritableAttr {
+  let Spellings = [Declspec<"SAL_satisfies">];
+  let Args = [StringArgument<"SALArg">];
+}
+
+def SAL_set_same_lock : InheritableAttr {
+  let Spellings = [Declspec<"SAL_set_same_lock">];
+  let Args = [StringArgument<"SALArg">];
+}
+
+def SAL_set_lock_count_to_one : InheritableAttr {
+  let Spellings = [Declspec<"SAL_set_lock_count_to_one">];
+  let Args = [StringArgument<"SALArg">];
+}
+
+def SAL_set_lock_count_to_zero : InheritableAttr {
+  let Spellings = [Declspec<"SAL_set_lock_count_to_zero">];
+  let Args = [StringArgument<"SALArg">];
+}
+
+def SAL_success : InheritableAttr {
+  let Spellings = [Declspec<"SAL_success">];
+  let Args = [StringArgument<"SALArg">];
+}
+
+def SAL_transfer_adt_property_from : InheritableAttr {
+  let Spellings = [Declspec<"SAL_transfer_adt_property_from">];
+  let Args = [StringArgument<"SALArg">];
+}
+
+def SAL_typefix : InheritableAttr {
+  let Spellings = [Declspec<"SAL_typefix">];
+  let Args = [StringArgument<"SALArg">];
+}
+
+def SAL_untrusted_data_source : InheritableAttr {
+  let Spellings = [Declspec<"SAL_untrusted_data_source">];
+  let Args = [StringArgument<"SALArg">];
+}
+
+def SAL_useHeader : InheritableAttr {
+  let Spellings = [Declspec<"SAL_useHeader">];
+}
+
+def SAL_valid : InheritableAttr {
+  let Spellings = [Declspec<"SAL_valid">];
+  let Args = [StringArgument<"SALArg", 1>];
+}
+
+def SAL_validated : InheritableAttr {
+  let Spellings = [Declspec<"SAL_validated">];
+  let Args = [StringArgument<"SALArg">];
+}
+
+def SAL_when : InheritableAttr {
+  let Spellings = [Declspec<"SAL_when">];
+  let Args = [StringArgument<"SALArg">];
+}
+
+def SAL_writableTo : InheritableAttr {
+  let Spellings = [Declspec<"SAL_writableTo">];
+  let Args = [StringArgument<"SALArg">];
+}
+
 def Section : InheritableAttr {
   let Spellings = [GNU<"section">, CXX11<"gnu", "section">];
   let Args = [StringArgument<"Name">];

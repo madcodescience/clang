@@ -4876,7 +4876,404 @@ static void ProcessDeclAttribute(Sema &S, Scope *scope, Decl *D,
     handleTypeTagForDatatypeAttr(S, D, Attr);
     break;
 
+
+  case AttributeList::AT_novtable:
+    D->addAttr(
+      ::new (S.Context) novtableAttr(Attr.getRange(), S.Context));
+    break;
+  case AttributeList::AT_restrict:
+    D->addAttr(
+      ::new (S.Context) restrictAttr(Attr.getRange(), S.Context));
+    break;
+  case AttributeList::AT_noalias:
+    D->addAttr(
+      ::new (S.Context) noaliasAttr(Attr.getRange(), S.Context));
+    break;
+
+
+
+  // Source Annotation Language attributes do not require handling at this 
+  // point. Instead, the attributes should be attached to the declaration
+  // for processing by the static analyzer.
+  case AttributeList::AT_SAL_annotation:
+    D->addAttr(
+      ::new (S.Context) SAL_annotationAttr(Attr.getRange(), S.Context));
+    break;
+  case AttributeList::AT_SAL_allocator:
+    D->addAttr(
+      ::new (S.Context) SAL_allocatorAttr(Attr.getRange(), S.Context));
+    break;
+  case AttributeList::AT_SAL_access:
+    {
+      Expr *expr = Attr.getArgAsExpr(0);
+      StringRef argumentString = dyn_cast<StringLiteral>(expr)->getString();
+
+      D->addAttr(::new (S.Context) SAL_accessAttr(Attr.getRange(), S.Context, argumentString));
+      break;
+    }
+  case AttributeList::AT_SAL_acquires_lock:
+    {
+      Expr *expr = Attr.getArgAsExpr(0);
+      StringRef argumentString = dyn_cast<StringLiteral>(expr)->getString();
+
+      D->addAttr(::new (S.Context) SAL_acquires_lockAttr(Attr.getRange(), S.Context, argumentString));
+      break;
+    }
+  case AttributeList::AT_SAL_at_buffer:
+    {
+      Expr *expr = Attr.getArgAsExpr(0);
+      StringRef argumentString = dyn_cast<StringLiteral>(expr)->getString();
+
+      D->addAttr(::new (S.Context) SAL_at_bufferAttr(Attr.getRange(), S.Context, argumentString));
+      break;
+    }
+  case AttributeList::AT_SAL_AuToQuOtE:
+    D->addAttr(
+      ::new (S.Context) SAL_AuToQuOtEAttr(Attr.getRange(), S.Context));
+    break;
+  case AttributeList::AT_SAL_begin:
+    D->addAttr(
+      ::new (S.Context) SAL_beginAttr(Attr.getRange(), S.Context));
+    break;
+  case AttributeList::AT_SAL_blocksOn:
+    D->addAttr(
+      ::new (S.Context) SAL_blocksOnAttr(Attr.getRange(), S.Context));
+    break;
+  case AttributeList::AT_SAL_bound:
+    D->addAttr(
+      ::new (S.Context) SAL_boundAttr(Attr.getRange(), S.Context));
+    break;
+  case AttributeList::AT_SAL_callback:
+    D->addAttr(
+      ::new (S.Context) SAL_callbackAttr(Attr.getRange(), S.Context));
+    break;
+  case AttributeList::AT_SAL_checkReturn:
+    D->addAttr(
+      ::new (S.Context) SAL_checkReturnAttr(Attr.getRange(), S.Context));
+    break;
+  case AttributeList::AT_SAL_deferTypecheck:
+    D->addAttr(
+      ::new (S.Context) SAL_deferTypecheckAttr(Attr.getRange(), S.Context));
+    break;
+  case AttributeList::AT_SAL_deref:
+    D->addAttr(
+      ::new (S.Context) SAL_derefAttr(Attr.getRange(), S.Context));
+    break;
+  case AttributeList::AT_SAL_end:
+    D->addAttr(
+      ::new (S.Context) SAL_endAttr(Attr.getRange(), S.Context));
+    break;
+  case AttributeList::AT_SAL_entrypoint:
+    {
+      Expr *expr = Attr.getArgAsExpr(0);
+      StringRef argumentString = dyn_cast<StringLiteral>(expr)->getString();
+
+      D->addAttr(::new (S.Context) SAL_entrypointAttr(Attr.getRange(), S.Context, argumentString));
+      break;
+    }
+  case AttributeList::AT_SAL_error:
+    {
+      Expr *expr = Attr.getArgAsExpr(0);
+      StringRef argumentString = dyn_cast<StringLiteral>(expr)->getString();
+
+      D->addAttr(::new (S.Context) SAL_errorAttr(Attr.getRange(), S.Context, argumentString));
+      break;
+    }
+  case AttributeList::AT_SAL_except:
+    D->addAttr(
+      ::new (S.Context) SAL_exceptAttr(Attr.getRange(), S.Context));
+    break;
+  case AttributeList::AT_SAL_functionClass:
+    {
+      Expr *expr = Attr.getArgAsExpr(0);
+      StringRef argumentString = dyn_cast<StringLiteral>(expr)->getString();
+
+      D->addAttr(::new (S.Context) SAL_functionClassAttr(Attr.getRange(), S.Context, argumentString));
+      break;
+    }
+  case AttributeList::AT_SAL_ignore_lock_match:
+    {
+      Expr *expr = Attr.getArgAsExpr(0);
+      StringRef argumentString = dyn_cast<StringLiteral>(expr)->getString();
+
+      D->addAttr(::new (S.Context) SAL_ignore_lock_matchAttr(Attr.getRange(), S.Context, argumentString));
+      break;
+    }
+  case AttributeList::AT_SAL_interlocked:
+    D->addAttr(
+      ::new (S.Context) SAL_interlockedAttr(Attr.getRange(), S.Context));
+    break;
+  case AttributeList::AT_SAL_inTry:
+    {
+      Expr *expr = Attr.getArgAsExpr(0);
+      StringRef argumentString = dyn_cast<StringLiteral>(expr)->getString();
+
+      D->addAttr(::new (S.Context) SAL_inTryAttr(Attr.getRange(), S.Context, argumentString));
+      break;
+    }
+  case AttributeList::AT_SAL_IsAliased:
+    D->addAttr(
+      ::new (S.Context) SAL_IsAliasedAttr(Attr.getRange(), S.Context));
+    break;
+  case AttributeList::AT_SAL_IsFormatString:
+    {
+      Expr *expr = Attr.getArgAsExpr(0);
+      StringRef argumentString = dyn_cast<StringLiteral>(expr)->getString();
+
+      D->addAttr(::new (S.Context) SAL_IsFormatStringAttr(Attr.getRange(), S.Context, argumentString));
+      break;
+    }
+  case AttributeList::AT_SAL_maxIRQL:
+    {
+      Expr *expr = Attr.getArgAsExpr(0);
+      StringRef argumentString = dyn_cast<StringLiteral>(expr)->getString();
+
+      D->addAttr(::new (S.Context) SAL_maxIRQLAttr(Attr.getRange(), S.Context, argumentString));
+      break;
+    }
+  case AttributeList::AT_SAL_maybenull:
+    D->addAttr(
+      ::new (S.Context) SAL_maybenullAttr(Attr.getRange(), S.Context));
+    break;
+  case AttributeList::AT_SAL_maybevalid:
+    D->addAttr(
+      ::new (S.Context) SAL_maybevalidAttr(Attr.getRange(), S.Context));
+    break;
+  case AttributeList::AT_SAL_name:
+    {
+      Expr *expr = Attr.getArgAsExpr(0);
+      StringRef argumentString = dyn_cast<StringLiteral>(expr)->getString();
+
+      D->addAttr(::new (S.Context) SAL_nameAttr(Attr.getRange(), S.Context, argumentString));
+      break;
+    }
+  case AttributeList::AT_SAL_NeedsRelease:
+    {
+      Expr *expr = Attr.getArgAsExpr(0);
+      StringRef argumentString = dyn_cast<StringLiteral>(expr)->getString();
+
+      D->addAttr(::new (S.Context) SAL_NeedsReleaseAttr(Attr.getRange(), S.Context, argumentString));
+      break;
+    }
+  case AttributeList::AT_SAL_notnull:
+    D->addAttr(
+      ::new (S.Context) SAL_notnullAttr(Attr.getRange(), S.Context));
+    break;
+  case AttributeList::AT_SAL_notreadonly:
+    D->addAttr(
+      ::new (S.Context) SAL_notreadonlyAttr(Attr.getRange(), S.Context));
+    break;
+  case AttributeList::AT_SAL_notref:
+    D->addAttr(
+      ::new (S.Context) SAL_notrefAttr(Attr.getRange(), S.Context));
+    break;
+  case AttributeList::AT_SAL_notvalid:
+    D->addAttr(
+      ::new (S.Context) SAL_notvalidAttr(Attr.getRange(), S.Context));
+    break;
+  case AttributeList::AT_SAL_null:
+    {
+      StringRef argumentString;
+      if(Attr.getNumArgs() > 0)
+      {
+        assert(Attr.getNumArgs() == 1);
+        Expr *expr = Attr.getArgAsExpr(0);
+        argumentString = dyn_cast<StringLiteral>(expr)->getString();
+      }
+
+      D->addAttr(::new (S.Context) SAL_nullAttr(Attr.getRange(), S.Context, argumentString));
+      break;
+    }
+  case AttributeList::AT_SAL_nullTerminated:
+    {
+      Expr *expr = Attr.getArgAsExpr(0);
+      StringRef argumentString = dyn_cast<StringLiteral>(expr)->getString();
+
+      D->addAttr(::new (S.Context) SAL_nullTerminatedAttr(Attr.getRange(), S.Context, argumentString));
+      break;
+    }
+  case AttributeList::AT_SAL_post:
+    D->addAttr(
+      ::new (S.Context) SAL_postAttr(Attr.getRange(), S.Context));
+    break;
+  case AttributeList::AT_SAL_pre:
+    D->addAttr(
+      ::new (S.Context) SAL_preAttr(Attr.getRange(), S.Context));
+    break;
+  case AttributeList::AT_SAL_primop:
+    D->addAttr(
+      ::new (S.Context) SAL_primopAttr(Attr.getRange(), S.Context));
+    break;
+  case AttributeList::AT_SAL_override:
+    D->addAttr(
+      ::new (S.Context) SAL_overrideAttr(Attr.getRange(), S.Context));
+    break;
+  case AttributeList::AT_SAL_preferredFunction:
+    {
+      Expr *expr = Attr.getArgAsExpr(0);
+      StringRef argumentString = dyn_cast<StringLiteral>(expr)->getString();
+
+      D->addAttr(::new (S.Context) SAL_preferredFunctionAttr(Attr.getRange(), S.Context, argumentString));
+      break;
+    }
+  case AttributeList::AT_SAL_qualifier:
+    D->addAttr(
+      ::new (S.Context) SAL_qualifierAttr(Attr.getRange(), S.Context));
+    break;
+  case AttributeList::AT_SAL_range:
+    {
+      Expr *expr = Attr.getArgAsExpr(0);
+      StringRef argumentString = dyn_cast<StringLiteral>(expr)->getString();
+
+      D->addAttr(::new (S.Context) SAL_rangeAttr(Attr.getRange(), S.Context, argumentString));
+      break;
+    }
+  case AttributeList::AT_SAL_readableTo:
+    {
+      Expr *expr = Attr.getArgAsExpr(0);
+      StringRef argumentString = dyn_cast<StringLiteral>(expr)->getString();
+
+      D->addAttr(::new (S.Context) SAL_readableToAttr(Attr.getRange(), S.Context, argumentString));
+      break;
+    }
+  case AttributeList::AT_SAL_readonly:
+    D->addAttr(
+      ::new (S.Context) SAL_readonlyAttr(Attr.getRange(), S.Context));
+    break;
+  case AttributeList::AT_SAL_releases_lock:
+    {
+      Expr *expr = Attr.getArgAsExpr(0);
+      StringRef argumentString = dyn_cast<StringLiteral>(expr)->getString();
+
+      D->addAttr(::new (S.Context) SAL_releases_lockAttr(Attr.getRange(), S.Context, argumentString));
+      break;
+    }
+  case AttributeList::AT_SAL_sameIRQL:
+    D->addAttr(
+      ::new (S.Context) SAL_sameIRQLAttr(Attr.getRange(), S.Context));
+    break;
+  case AttributeList::AT_SAL_satisfies:
+    {
+      Expr *expr = Attr.getArgAsExpr(0);
+      StringRef argumentString = dyn_cast<StringLiteral>(expr)->getString();
+
+      D->addAttr(::new (S.Context) SAL_satisfiesAttr(Attr.getRange(), S.Context, argumentString));
+      break;
+    }
+  case AttributeList::AT_SAL_set_same_lock:
+    {
+      Expr *expr = Attr.getArgAsExpr(0);
+      StringRef argumentString = dyn_cast<StringLiteral>(expr)->getString();
+
+      D->addAttr(::new (S.Context) SAL_set_same_lockAttr(Attr.getRange(), S.Context, argumentString));
+      break;
+    }
+  case AttributeList::AT_SAL_set_lock_count_to_one:
+    {
+      Expr *expr = Attr.getArgAsExpr(0);
+      StringRef argumentString = dyn_cast<StringLiteral>(expr)->getString();
+
+      D->addAttr(::new (S.Context) SAL_set_lock_count_to_oneAttr(Attr.getRange(), S.Context, argumentString));
+      break;
+    }
+  case AttributeList::AT_SAL_set_lock_count_to_zero:
+    {
+      Expr *expr = Attr.getArgAsExpr(0);
+      StringRef argumentString = dyn_cast<StringLiteral>(expr)->getString();
+
+      D->addAttr(::new (S.Context) SAL_set_lock_count_to_zeroAttr(Attr.getRange(), S.Context, argumentString));
+      break;
+    }
+  case AttributeList::AT_SAL_success:
+    {
+      Expr *expr = Attr.getArgAsExpr(0);
+      StringRef argumentString = dyn_cast<StringLiteral>(expr)->getString();
+
+      D->addAttr(::new (S.Context) SAL_successAttr(Attr.getRange(), S.Context, argumentString));
+      break;
+    }
+  case AttributeList::AT_SAL_transfer_adt_property_from:
+    {
+      Expr *expr = Attr.getArgAsExpr(0);
+      StringRef argumentString = dyn_cast<StringLiteral>(expr)->getString();
+
+      D->addAttr(::new (S.Context) SAL_transfer_adt_property_fromAttr(Attr.getRange(), S.Context, argumentString));
+      break;
+    }
+  case AttributeList::AT_SAL_typefix:
+    {
+      Expr *expr = Attr.getArgAsExpr(0);
+      StringRef argumentString = dyn_cast<StringLiteral>(expr)->getString();
+
+      D->addAttr(::new (S.Context) SAL_typefixAttr(Attr.getRange(), S.Context, argumentString));
+      break;
+    }
+  case AttributeList::AT_SAL_useHeader:
+    D->addAttr(
+      ::new (S.Context) SAL_useHeaderAttr(Attr.getRange(), S.Context));
+    break;
+  case AttributeList::AT_SAL_untrusted_data_source:
+    {
+      Expr *expr = Attr.getArgAsExpr(0);
+      StringRef argumentString = dyn_cast<StringLiteral>(expr)->getString();
+
+      D->addAttr(::new (S.Context) SAL_untrusted_data_sourceAttr(Attr.getRange(), S.Context, argumentString));
+      break;
+    }
+#if 0
+  case AttributeList::AT_SAL_valid:
+    D->addAttr(
+      ::new (S.Context) SAL_validAttr(Attr.getRange(), S.Context));
+    break;
+#else
+  case AttributeList::AT_SAL_valid:
+    {
+      StringRef argumentString;
+      if(Attr.getNumArgs() > 0)
+      {
+        assert(Attr.getNumArgs() == 1);
+        Expr *expr = Attr.getArgAsExpr(0);
+        argumentString = dyn_cast<StringLiteral>(expr)->getString();
+      }
+
+      D->addAttr(::new (S.Context) SAL_validAttr(Attr.getRange(), S.Context, argumentString));
+      break;
+    }
+#endif
+  case AttributeList::AT_SAL_validated:
+    {
+      Expr *expr = Attr.getArgAsExpr(0);
+      StringRef argumentString = dyn_cast<StringLiteral>(expr)->getString();
+
+      D->addAttr(::new (S.Context) SAL_validatedAttr(Attr.getRange(), S.Context, argumentString));
+      break;
+    }
+  case AttributeList::AT_SAL_when:
+    {
+      Expr *expr = Attr.getArgAsExpr(0);
+      StringRef argumentString = dyn_cast<StringLiteral>(expr)->getString();
+
+      D->addAttr(::new (S.Context) SAL_whenAttr(Attr.getRange(), S.Context, argumentString));
+      break;
+    }
+  case AttributeList::AT_SAL_writableTo:
+    {
+      Expr *expr = Attr.getArgAsExpr(0);
+      StringRef argumentString = dyn_cast<StringLiteral>(expr)->getString();
+
+      D->addAttr(::new (S.Context) SAL_writableToAttr(Attr.getRange(), S.Context, argumentString));
+      break;
+    }
+
   default:
+#if 0
+    {
+      StringRef r = Attr.getName()->getName();
+      if(!r.startswith("dllimport"))
+      {
+        printf("[UNKNOWN]: %.*s\n", r.size(), r.data());
+    }
+#endif
     // Ask target about the attribute.
     const TargetAttributesSema &TargetAttrs = S.getTargetAttributesSema();
     if (!TargetAttrs.ProcessDeclAttribute(scope, D, Attr, S))
